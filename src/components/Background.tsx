@@ -16,7 +16,7 @@ const Background = ({ location, loading }: IProps) => {
         zIndex: -1000,
       }}
     >
-      <Image src="/assets/pattern-bg.png" alt="" />
+      <Image src="assets/pattern-bg.png" alt="" />
       {!loading && <Map location={location} />}
     </div>
   );
