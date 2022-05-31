@@ -1,0 +1,14 @@
+{
+  "ip": "8.8.8.8",
+  "location": {
+    "country": "US",
+    "region": "California",
+    "city": "Mountain View",
+    "lat": 37.40599,
+    "lng": -122.078514,
+    "postalCode": "94043",
+    "timezone": "-07:00",
+    "geonameId": 5375481
+  },
+  "isp": "Google LLC"
+}
