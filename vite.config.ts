@@ -3,6 +3,20 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "https://ip-address-tracker-whoamihealay.netlify.app/",
+  base: "https://whoamihealay.github.io/ip-address-tracker/",
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://geo.ipify.org/",
+      },
+    },
+  },
+  preview: {
+    proxy: {
+      "/api": {
+        target: "https://geo.ipify.org/",
+      },
+    },
+  },
   plugins: [react()],
 });

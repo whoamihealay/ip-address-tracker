@@ -13,7 +13,7 @@ import axios from "axios";
 function App() {
   const [ip, setIp] = useState<string>("");
   const TOKEN = import.meta.env.VITE_API_KEY;
-  const APIURL = `https://geo.ipify.org/api/v2/country,city?apiKey=${TOKEN}&ipAddress=${ip}`;
+  const APIURL = `/api/v2/country,city?apiKey=${TOKEN}&ipAddress=${ip}`;
 
   const [value, setValue] = useState();
   const [loading, setLoading] = useState(true);
@@ -32,13 +32,15 @@ function App() {
     isp: "",
   });
 
-  // const { loading, error, value } = useFetch(APIURL, {}, [ip]);
-
   useEffect(() => {
     const fetchIps = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(APIURL);
+        const res = await axios({
+          url: APIURL,
+          method: "get",
+          baseURL: "https://geo.ipify.org",
+        });
 
         if (res.statusText === "OK") {
           setValue(res.data);
