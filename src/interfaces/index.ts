@@ -2,7 +2,7 @@ export type ApiIpData = {
   ip: string;
   location: ApiLocation;
   isp: string;
-};
+} | null;
 
 export type ApiLocation = {
   country: string;

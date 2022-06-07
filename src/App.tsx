@@ -3,34 +3,29 @@ import { toast, ToastContainer, ToastContent } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "leaflet/dist/leaflet.css";
 
-import { CardInfo, SearchBar, Background, Footer } from "./components/";
+import { CardInfo, SearchBar, Background, Footer, Map } from "./components/";
 
 import { ApiIpData } from "./interfaces";
-import { CardStyled, Container, FlexCol, H1, Main } from "./components/styles";
+import {
+  CardStyled,
+  Container,
+  FlexCol,
+  H1,
+  Main,
+  Image,
+} from "./components/styles";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import axios from "axios";
+import { LatLngExpression } from "leaflet";
 
 function App() {
-  const [ip, setIp] = useState<string>("");
+  const [ip, setIp] = useState<string | null>(null);
   const TOKEN = import.meta.env.VITE_API_KEY;
-  const APIURL = `/api/v2/country,city?apiKey=${TOKEN}&ipAddress=${ip}`;
-
-  const [value, setValue] = useState();
+  const APIURL =
+    `/api/v2/country,city?apiKey=${TOKEN}` + (ip ? `&ipAddress=${ip}` : "");
   const [loading, setLoading] = useState(true);
 
-  const [ipData, setIpData] = useState<ApiIpData>({
-    ip: "",
-    location: {
-      country: "",
-      region: "",
-      city: "",
-      lat: 0,
-      lng: 0,
-      postalCode: "",
-      timezone: "",
-    },
-    isp: "",
-  });
+  const [ipData, setIpData] = useState<ApiIpData>(null);
 
   useEffect(() => {
     const fetchIps = async () => {
@@ -43,7 +38,7 @@ function App() {
         });
 
         if (res.statusText === "OK") {
-          setValue(res.data);
+          setIpData(res.data);
           setLoading(false);
         }
       } catch (error: any) {
@@ -53,12 +48,6 @@ function App() {
 
     fetchIps();
   }, [ip]);
-
-  useEffect(() => {
-    if (value) {
-      setIpData(value);
-    }
-  }, [value]);
 
   return (
     <>
@@ -72,7 +61,10 @@ function App() {
             </CardStyled>
           </FlexCol>
         </Container>
-        <Background loading={loading} location={ipData.location} />
+        <Background location={ipData?.location}>
+          <Image src="assets/pattern-bg.png" alt="" />
+          <Map location={ipData?.location} />
+        </Background>
       </Main>
       <Footer />
       <ToastContainer />

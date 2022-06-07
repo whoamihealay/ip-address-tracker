@@ -1,13 +1,14 @@
 import { Image } from "./styles";
 import { Map } from ".";
 import { ApiLocation } from "../interfaces";
+import { Children } from "react";
 
 interface IProps {
-  location: ApiLocation;
-  loading: boolean;
+  location?: ApiLocation;
+  children?: React.ReactNode;
 }
 
-const Background = ({ location, loading }: IProps) => {
+const Background = ({ location, children }: IProps) => {
   return (
     <div
       style={{
@@ -16,8 +17,7 @@ const Background = ({ location, loading }: IProps) => {
         zIndex: -1000,
       }}
     >
-      <Image src="assets/pattern-bg.png" alt="" />
-      {!loading && <Map location={location} />}
+      {children}
     </div>
   );
 };

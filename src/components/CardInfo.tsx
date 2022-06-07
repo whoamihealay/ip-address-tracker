@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ApiIpData } from "../interfaces";
 
 interface IProps {
-  ipData: ApiIpData;
+  ipData?: ApiIpData;
 }
 
 const ListTitle = styled.li`
@@ -43,31 +43,30 @@ const Divider = styled.div`
 `;
 
 const CardInfo = ({ ipData }: IProps) => {
-  const { ip, location, isp } = ipData;
-
   return (
     <>
       <CardList>
         <div>
           <ListTitle>IP Address</ListTitle>
-          <ListContent>{ip}</ListContent>
+          <ListContent>{ipData?.ip}</ListContent>
         </div>
         <Divider />
         <div>
           <ListTitle>Location </ListTitle>
           <ListContent>
-            {location.city}, {location.region} {location.postalCode}
+            {ipData?.location.city}, {ipData?.location.region}{" "}
+            {ipData?.location.postalCode}
           </ListContent>
         </div>
         <Divider />
         <div>
           <ListTitle>Timezone UTC</ListTitle>
-          <ListContent>{location.timezone}</ListContent>
+          <ListContent>{ipData?.location.timezone}</ListContent>
         </div>
         <Divider />
         <div>
           <ListTitle>ISP</ListTitle>
-          <ListContent>{isp}</ListContent>
+          <ListContent>{ipData?.isp}</ListContent>
         </div>
       </CardList>
     </>
